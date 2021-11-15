@@ -1,0 +1,71 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10/11/2021, 22:46:06
+    Author     : ygor.oliveira
+*/
+
+/*imagem do h1 e h2*/
+img{
+    height: 80px;
+}
+/*imagem lixeira*/
+.bin{
+    height: 20px; 
+}
+
+/*div class titulos h1 e h2*/
+.container{
+    display: flex;
+    align-items: center;
+}
+
+.legend{
+    display: flex;
+    align-items: center;
+    left: 50%;
+    font-style: bold;
+    font-family: "Segoe UI", "Arial";
+}
+
+ #grad {
+                height: auto;
+                background-color: rgba(255, 255, 255, 1); /* For browsers that do not support gradients */
+                background-image: linear-gradient(to bottom right, #c0c0c0, transparent);
+                border-radius: 30px;
+}
+
+
+body{
+                background-position:center;
+                background-image: url(../img/FundoWallpaper04.jpg);
+                position: relative;
+                height: 100vh;
+                width: 100vw;
+                /* adicionando imagem de fundo */
+                background-size: cover;
+}
+
+
+    
+.cardCartao{
+    
+                height: auto;
+                background-color: rgba(252, 182, 245, 1); /* For browsers that do not support gradients */
+                background-image: linear-gradient(to bottom right, #F78EEE, transparent);
+                border-radius: 30px;
+    
+ }
+                        
+.cardCartao > li{
+    
+                margin-left: 5%;
+    
+}
+
+
+
+

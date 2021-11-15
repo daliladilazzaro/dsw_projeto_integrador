@@ -1,0 +1,75 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12/11/2021, 22:55:03
+    Author     : dilaz
+*/
+.card-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+}
+.card {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+}
+.card .card-pagamento {
+    width: 10px;
+}
+.cards {
+    display: flex;
+    flex-direction: row;
+}
+.link {
+    display: flex;
+    flex-direction: row;
+}
+a {
+    padding-right: 5px;
+}
+
+#foto_produto {
+    width: 100px;
+    height: 100px;
+}
+
+button {
+    background-color: #FF0099;
+    margin-bottom: 10px;
+}
+.card-total {
+    display: flex;
+    justify-content: space-between;
+}
+
+.linha {
+    border-top: 1px solid #DDDDDD;
+    margin: 10px 0px;
+}
+@media (max-width: 769px) {
+    .card, .card-display {
+        display: flex;
+        flex-direction: column;
+    }
+    .cards {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+body{
+                background-position:center;
+                background-image: url(../img/FundoWallpaper04.jpg);
+                position: relative;
+                height: 100vh;
+                width: 100vw;
+                /* adicionando imagem de fundo */
+                background-size: cover;
+}

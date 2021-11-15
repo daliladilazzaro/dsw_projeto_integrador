@@ -1,0 +1,90 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14/09/2021, 08:46:54
+    Author     : dilaz
+*/
+
+/*imagem do h1 e h2*/
+
+
+/*imagem lixeira*/
+
+/*div class titulos h1 e h2*/
+.container{
+    display: flex;
+    align-items: center;
+}
+.legend{
+    display: flex;
+    align-items: center;
+    left: 50%;
+    font-style: bold;
+    font-family: "Segoe UI", "Arial";
+}
+
+
+body{
+    background-position:center;
+    background-image: url(../img/FundoWallpaper04.jpg);
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    /* adicionando imagem de fundo */
+    background-size: cover;
+    
+}
+
+#grad {
+                height: auto;
+                background-color: rgba(95, 216, 229, 0.89); /* For browsers that do not support gradients */
+                background-image: linear-gradient(to bottom right, #c0c0c0, transparent);
+                border-radius: 30px;
+            }
+            
+            #grad2 {
+                height: auto;
+                background-color: rgba(95, 216, 229, 0.89); /* For browsers that do not support gradients */
+                background-image: linear-gradient(to bottom right, #c0c0c0, transparent);
+                border-radius: 30px;
+            }
+            
+            .w-auto legend{
+                display: flex;
+                align-items: center;
+                left: 50%;
+                font-style: bold;
+                font-family: "Segoe UI", "Arial";
+                
+            }
+            
+            .container{
+                display: flex;
+                align-items: center;
+                }
+                
+             #imagem:hover{
+                    transform: scale(2.5) rotate(-5deg);
+                    background-color: rgba(255,255,255,0.8);
+                    box-shadow: 0 0 5px #333;
+                    transition: all 1.2s;
+                    border-radius:30%;
+                    
+            }
+            
+             .bin{
+                    max-height:30px;
+                    padding-left:10%;
+            }
+                
+            .container img {
+                max-width:200px;
+                max-height:150px;
+                width: auto;
+                height: auto;
+  }
+
+

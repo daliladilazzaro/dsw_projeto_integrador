@@ -1,0 +1,150 @@
+
+Nome do banco: DBLojaMusica;
+
+CRIAÇÃO DE TABELAS:
+
+create table produto (
+id_produto INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+nome varchar (300) not null,
+avaliacao varchar (10) not null,
+descricao varchar (500) not null,
+status varchar (50) not null,
+preco decimal (10,2) not null,
+qtd_estoque integer not null
+);
+
+create table imagem (
+id_imagem INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+nome varchar (300) not null,
+padrao varchar (50) not null,
+fk_id_produto int not null,
+foreign key (fk_id_produto) references produto (id_produto));
+
+create table usuario (
+id_usuario INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+nome varchar (300) not null,
+cpf varchar (20) not null,
+email varchar (500) not null,
+senha varchar (500) not null,
+grupo varchar (100) not null,
+status varchar (100) not null
+);
+
+create table cliente (
+id_cliente INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+nome varchar (300) not null,
+cpf varchar (20) not null,
+email varchar (500) not null,
+nascimento varchar (40) not null,
+genero varchar (40) not null,
+senha varchar (500) not null,
+fk_id_usuario int not null,
+foreign key (fk_id_usuario) references usuario (id_usuario));
+
+create table endereco (
+id_endereco INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+CEP varchar (30) not null,
+logradouro varchar (300) not null,
+bairro varchar (100) not null,
+cidade varchar (100) not null,
+estado varchar (20) not null,
+numero int not null,
+tipo varchar (100) not null,
+padrao varchar (100) not null,
+status varchar (100) not null,
+fk_id_cliente int not null,
+foreign key (fk_id_cliente) references cliente (id_cliente));
+
+create table carrinho (
+id_item INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+qtd_desejada int not null,
+nome_cliente varchar (1000) not null,
+fk_id_produto int not null,
+fk_id_cliente int,
+
+foreign key (fk_id_produto) references produto (id_produto),
+foreign key (fk_id_cliente) references cliente (id_cliente));
+
+create table cartao (
+id_cartao INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+nome varchar (150) not null,
+numero varchar (100) not null,
+CVV int not null,
+expiracao varchar (50) not null,
+fk_id_cliente int not null,
+foreign key (fk_id_cliente) references cliente (id_cliente));
+
+create table checkout (
+id_checkout INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+fk_id_cliente int not null,
+fk_id_endereco int not null,
+frete decimal (10,2) not null,
+forma_pagamento varchar (50),
+fk_id_cartao int,
+qtd_parcelas int,
+foreign key (fk_id_cliente) references cliente (id_cliente),
+foreign key (fk_id_endereco) references endereco (id_endereco),
+foreign key (fk_id_cartao) references cartao (id_cartao));
+
+create table pedido (
+id_pedido INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+data_pedido varchar (50) not null,
+numero varchar (3000) not null,
+sub_total decimal (10,2) not null,
+frete decimal (10,2) not null,
+total decimal (10,2) not null,
+forma_pagamento varchar (50) not null,
+qtd_parcelas int not null,
+status varchar (100) not null,
+fk_id_cliente int not null,
+fk_id_endereco int not null,
+fk_id_cartao int,
+foreign key (fk_id_cliente) references cliente (id_cliente),
+foreign key (fk_id_endereco) references endereco (id_endereco),
+foreign key (fk_id_cartao) references cartao (id_cartao));
+
+create table item_pedido (
+id_item INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+valor_unitario decimal (10,2) not null,
+qtd_comprada int not null,
+fk_id_produto int not null,
+fk_id_pedido int not null,
+foreign key (fk_id_produto) references produto (id_produto),
+foreign key (fk_id_pedido) references pedido (id_pedido));
+
+
+PROCESSOS / INSERTS NECESSÁRIOS PARA UTILIZAÇÃO DO PROJETO:
+
+Cadastrar pelo menos um acesso de cliente para realizar compra e um acesso administrador para cadastrar produtos.
+Às senhas abaixo equivalem a "12345" no momento de logar:
+
+insert into usuario(nome, CPF, email, senha, grupo, status) values 
+('Cliente Teste','676.767.767-98','clienteTeste@outlook.com','$2a$12$AR1ifHZHTZC9gdHwlB06XeAMyEiVFyjtEgjsZN3qmV6JivNYoTnK.','Cliente','Ativo'),
+('Admin Teste','246.742.555.88','adminTeste@outlook.com','$2a$12$AR1ifHZHTZC9gdHwlB06XeAMyEiVFyjtEgjsZN3qmV6JivNYoTnK.','Admin','Ativo')
+
+
+Cadastrar alguns produtos previamente (pode usar o acesso Admin para cadastrar direto no sistema):
+
+
+insert into produto(nome, avaliacao, descricao, status, preco, qtd_estoque) values 
+('Produto Teste 01','5','Teste','Ativo',2500.00, 40),
+('Produto Teste 02','5','Teste','Ativo',2500.00, 40)
+
+
+Cadastrar às imagens referente aos produtos acima (pode usar o acesso Admin para cadastrar direto no sistema):
+IMPORTANTE: Caso as imagens sejam cadastradas manualmente via Script, é necessário colar elas dentro da pasta "img" do projeto.
+
+insert into imagem(nome, padrao, FK_id_produto) values 
+('imagem01Teste01.png','Principal',1),
+('imagem02Teste01.png','Complementar',1),
+('imagem01Teste02.png','Principal',2),
+('imagem02Teste02.png','Complementar',2)
+
+
+Alterar Path do servidor para possibilitar o cadastro de imagens via Front-end (mudar nome de usuário da máquina e se necessário caminho do projeto):
+
+Entrar no pacote "Servlet.Produto" e alterar os seguintes arquivos:
+Servlet "AlterarProduto", linhas: 60 e 69.
+Servlet "ExcluirImagem", linha: 28.
+Servlet "ProdutoServlet" linha: 46 e 55.
+
