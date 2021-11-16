@@ -1,3 +1,51 @@
+QUAL O LINK INICIAL PARA ACESSAR O SISTEMA DEPOIS DE EXECUTAR O PROJETO?
+http://localhost:8080/ProjetoInt_4SM/Publico/landing-page
+
+PROCESSOS / INSERTS NECESSÁRIOS PARA UTILIZAÇÃO DO PROJETO (A CRIAÇÃO DAS TABEAS SEGUEM MAIS ABAIXO):
+
+Às senhas abaixo equivalem a "12345" no momento de logar:
+
+insert into usuario(nome, CPF, email, senha, grupo, status) values 
+('Cliente Teste','676.767.767-98','clienteTeste@outlook.com','$2a$12$AR1ifHZHTZC9gdHwlB06XeAMyEiVFyjtEgjsZN3qmV6JivNYoTnK.','Cliente','Ativo'),
+('Admin Teste','246.742.555.88','adminTeste@outlook.com','$2a$12$AR1ifHZHTZC9gdHwlB06XeAMyEiVFyjtEgjsZN3qmV6JivNYoTnK.','Admin','Ativo')
+
+Pode realizar o cadastro um cliente + endereço direto pela landing-page do sistema. Não precisa necessáriamente executar os scripts abaixo:
+
+***Se atentar a chave estrangeira na tabela "cliente" e "endereco".***
+
+insert into cliente (nome, CPF, email, nascimento, genero, senha, fk_id_usuario) values 
+('Cliente Teste','676.767.767-98','clienteTeste@outlook.com','22/01/2001','Masculino','$2a$12$AR1ifHZHTZC9gdHwlB06XeAMyEiVFyjtEgjsZN3qmV6JivNYoTnK.',1)
+
+insert into endereco (CEP, logradouro, bairro, cidade, estado, numero, tipo, padrao, status,fk_id_cliente) values 
+('04467-140','Rua Teste','Bairro teste','Cidade teste','Estado teste',1,'Entrega','Principal','Ativo',1)
+
+
+Cadastrar alguns produtos previamente (recomendo usar o acesso Admin para cadastrar direto pelo sistema):
+
+insert into produto(nome, avaliacao, descricao, status, preco, qtd_estoque) values 
+('Produto Teste 01','5','Teste','Ativo',2500.00, 40),
+('Produto Teste 02','5','Teste','Ativo',2500.00, 40)
+
+
+Cadastrar às imagens referente aos produtos acima (pode usar o acesso Admin para cadastrar direto no sistema):
+IMPORTANTE: Caso as imagens sejam cadastradas manualmente via Script, é necessário colar elas dentro da pasta "img" do projeto.
+
+insert into imagem(nome, padrao, FK_id_produto) values 
+('imagem01Teste01.png','Principal',1),
+('imagem02Teste01.png','Complementar',1),
+('imagem01Teste02.png','Principal',2),
+('imagem02Teste02.png','Complementar',2)
+
+
+Alterar Path do servidor para possibilitar o cadastro de imagens via Front-end (mudar nome de usuário da máquina e se necessário caminho do projeto):
+
+Entrar no pacote "Servlet.Produto" e alterar os seguintes arquivos:
+Servlet "AlterarProduto", linhas: 60 e 69.
+Servlet "ExcluirImagem", linha: 28.
+Servlet "ProdutoServlet" linha: 46 e 55.
+
+
+CRIAÇÃO DAS TABELAS:
 
 Nome do banco: DBLojaMusica;
 Informações gerais sobre a conexão: Consultar pacote utils - classe: GerenciarConexao;
@@ -112,42 +160,6 @@ fk_id_produto int not null,
 fk_id_pedido int not null,
 foreign key (fk_id_produto) references produto (id_produto),
 foreign key (fk_id_pedido) references pedido (id_pedido));
-
-
-PROCESSOS / INSERTS NECESSÁRIOS PARA UTILIZAÇÃO DO PROJETO:
-
-Cadastrar pelo menos um acesso de cliente para realizar compra e um acesso administrador para cadastrar produtos.
-Às senhas abaixo equivalem a "12345" no momento de logar:
-
-insert into usuario(nome, CPF, email, senha, grupo, status) values 
-('Cliente Teste','676.767.767-98','clienteTeste@outlook.com','$2a$12$AR1ifHZHTZC9gdHwlB06XeAMyEiVFyjtEgjsZN3qmV6JivNYoTnK.','Cliente','Ativo'),
-('Admin Teste','246.742.555.88','adminTeste@outlook.com','$2a$12$AR1ifHZHTZC9gdHwlB06XeAMyEiVFyjtEgjsZN3qmV6JivNYoTnK.','Admin','Ativo')
-
-
-Cadastrar alguns produtos previamente (pode usar o acesso Admin para cadastrar direto no sistema):
-
-
-insert into produto(nome, avaliacao, descricao, status, preco, qtd_estoque) values 
-('Produto Teste 01','5','Teste','Ativo',2500.00, 40),
-('Produto Teste 02','5','Teste','Ativo',2500.00, 40)
-
-
-Cadastrar às imagens referente aos produtos acima (pode usar o acesso Admin para cadastrar direto no sistema):
-IMPORTANTE: Caso as imagens sejam cadastradas manualmente via Script, é necessário colar elas dentro da pasta "img" do projeto.
-
-insert into imagem(nome, padrao, FK_id_produto) values 
-('imagem01Teste01.png','Principal',1),
-('imagem02Teste01.png','Complementar',1),
-('imagem01Teste02.png','Principal',2),
-('imagem02Teste02.png','Complementar',2)
-
-
-Alterar Path do servidor para possibilitar o cadastro de imagens via Front-end (mudar nome de usuário da máquina e se necessário caminho do projeto):
-
-Entrar no pacote "Servlet.Produto" e alterar os seguintes arquivos:
-Servlet "AlterarProduto", linhas: 60 e 69.
-Servlet "ExcluirImagem", linha: 28.
-Servlet "ProdutoServlet" linha: 46 e 55.
 
 
 
